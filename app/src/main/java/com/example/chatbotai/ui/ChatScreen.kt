@@ -21,31 +21,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.chatbotai.core.DependencyInjection
-import com.example.chatbotai.R
 import com.example.chatbotai.application.chat.ChatState
 import com.example.chatbotai.application.chat.ChatViewModel
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun MainScreen(
+fun ChatScreen(
+    navController: NavHostController,
+    name: String?,
     chatViewModel: ChatViewModel = viewModel(),
 ) {
     val recordAudioController = DependencyInjection.getRecordAudioController()
+    val personRepository = DependencyInjection.getPersonRepository()
     var prompt by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("") }
     val uiState by chatViewModel.chatState.collectAsState()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val person = personRepository.getPerson(name!!)
 
     remember {
         scope.launch {
-            chatViewModel.startChat("main", context)
+            chatViewModel.startChat(person.name, context)
             recordAudioController.init(context)
         }
     }
@@ -54,7 +57,7 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "Title",
+            text = person.name,
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(16.dp)
         )
@@ -69,7 +72,6 @@ fun MainScreen(
                         chatViewModel.sendMessage(prompt, context)
                     }
                 },
-                enabled = prompt.isNotEmpty(),
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
             ) {

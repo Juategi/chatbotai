@@ -1,5 +1,7 @@
 package com.example.chatbotai.core
 
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.chatbotai.application.record.RecordAudioController
 import com.example.chatbotai.application.tts.TextToSpeechController
 import com.example.chatbotai.domain.chat.ChatRepository

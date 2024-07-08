@@ -11,10 +11,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.chatbotai.ui.AppNavigation
 import com.example.chatbotai.ui.ChatSelectorScreen
-import com.example.chatbotai.ui.MainScreen
 import com.example.chatbotai.ui.theme.ChatbotaiTheme
-import dagger.hilt.android.HiltAndroidApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    ChatSelectorScreen()
+                    AppNavigation()
                 }
             }
         }

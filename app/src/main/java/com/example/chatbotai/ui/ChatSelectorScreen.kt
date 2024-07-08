@@ -1,6 +1,7 @@
 package com.example.chatbotai.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +17,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.chatbotai.core.DependencyInjection
 import com.example.chatbotai.domain.person.PersonEntity
 
 @Composable
-fun ChatSelectorScreen() {
+fun ChatSelectorScreen(navController: NavHostController) {
 
     val personRepository = DependencyInjection.getPersonRepository()
     val persons = personRepository.getPersons()
@@ -29,14 +34,15 @@ fun ChatSelectorScreen() {
         modifier = Modifier.padding(16.dp),
     ) {
         items(persons) { person ->
-            PersonTile(person)
+            PersonTile(person, navController)
         }
     }
 }
 
 @Composable
-fun PersonTile(person: PersonEntity) {
-    Row(modifier = Modifier.padding(8.dp)) {
+fun PersonTile(person: PersonEntity, navController: NavHostController) {
+    Row(modifier = Modifier.padding(8.dp).clickable { navController.navigate("chat/${person.name}") }
+    ) {
         Image(
             painter = painterResource(id = person.image),
             contentDescription = person.name,

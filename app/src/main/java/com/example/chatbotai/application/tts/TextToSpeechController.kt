@@ -35,9 +35,9 @@ class TextToSpeechController : TextToSpeech.OnInitListener {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = tts.setLanguage(Locale.ENGLISH)
+            val result = tts.setLanguage(Locale.getDefault())
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                // Language data is missing or the language is not supported.
+                tts.setLanguage(Locale.ENGLISH)
             } else {
                 // Initialization success.
                 //logAvailableVoices()
