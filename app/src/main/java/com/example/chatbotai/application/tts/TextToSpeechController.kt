@@ -3,10 +3,9 @@ package com.example.chatbotai.application.tts
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import java.util.Locale
 
-class TextToSpeechViewModel : TextToSpeech.OnInitListener {
+class TextToSpeechController : TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
 
     fun init(context: Context) {
