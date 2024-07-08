@@ -6,8 +6,7 @@ import com.example.chatbotai.domain.chat.ChatRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class ChatRepositoryImpl @Inject constructor() : ChatRepository {
+class ChatRepositoryImpl : ChatRepository {
     override suspend fun getChat(id: String, context: Context) = ChatDatabase.getDatabase(context).chatDao().getChat(id)
 
     override suspend fun insert(chat: ChatEntity, context: Context) = ChatDatabase.getDatabase(context).chatDao().insert(chat)

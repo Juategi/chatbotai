@@ -6,13 +6,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import java.util.Locale
 
-abstract class TextToSpeechViewModel : ViewModel() , TextToSpeech.OnInitListener {
+class TextToSpeechViewModel : TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
 
     fun init(context: Context) {
         tts = TextToSpeech(context, this)
-        tts.setLanguage(Locale.ENGLISH)
-        changeVoice("es-es-x-eef-local")
     }
 
     private fun changeVoice(voiceName: String) {
@@ -35,5 +33,21 @@ abstract class TextToSpeechViewModel : ViewModel() , TextToSpeech.OnInitListener
             Log.d("Voice", "Name: ${voice.name}, Locale: ${voice.locale}")
         }
     }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts.setLanguage(Locale.ENGLISH)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // Language data is missing or the language is not supported.
+            } else {
+                // Initialization success.
+                //logAvailableVoices()
+                //changeVoice("es-es-x-eef-local")
+            }
+        } else {
+            // Initialization failed.
+        }
+    }
+
 
 }

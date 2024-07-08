@@ -5,5 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
     id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("androidx.room") version "2.6.1" apply false
+
 
 }

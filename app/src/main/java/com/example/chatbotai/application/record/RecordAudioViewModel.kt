@@ -22,7 +22,7 @@ class RecordAudioViewModel : ViewModel() {
         speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+            putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false)
         }
     }
 
@@ -61,10 +61,13 @@ class RecordAudioViewModel : ViewModel() {
             }
 
             override fun onPartialResults(partialResults: Bundle?) {
+                /*
                 val matches = partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 matches?.let {
                     onResult(it[0])
                 }
+
+                 */
             }
 
             override fun onEvent(eventType: Int, params: Bundle?) {
