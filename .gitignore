@@ -25,3 +25,4 @@ replay_pid*
 
 #project
 local.properties
+app/src/main/res/raw/gemma2b.bin
